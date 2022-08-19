@@ -1,5 +1,5 @@
 {
-  "name": "how-to-sign-and-verify-using-web3js",
+  "name": "how-to-sign-and-verify-using-ethers",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,13 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gist": "source .env.local && gist -u $GIST_ID -od '✍️ How to sign with MetaMask and verify with Node.js using web3.js' pages/sign.tsx pages/api/verify.ts"
+    "gist": "source .env.local && gist -u $GIST_ID -od '✍️ How to sign with MetaMask and verify with Node.js using ethers.js' pages/sign.tsx pages/api/verify.ts"
   },
   "dependencies": {
+    "ethers": "^5.6.9",
     "next": "12.2.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "web3": "^1.7.5"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@types/node": "18.7.1",

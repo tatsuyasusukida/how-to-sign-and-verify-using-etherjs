@@ -1,29 +1,28 @@
 import { useState } from "react"
-import Web3 from "web3"
+import { ethers } from "ethers"
 
-export default function Sign () {
+export default function Sign() {
   const [isVerified, setIsVerified] = useState(false)
 
   const onClick = async () => {
-    const provider = window.ethereum || window.web3?.provider || null
-
-    if (!provider) {
-      console.error('!provider')
+    if (!window.ethereum) {
+      console.error('!window.ethereum')
       return
     }
 
-    const web3 = new Web3(provider)
-    const [address] = await web3.eth.requestAccounts()
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    await provider.send('eth_requestAccounts', [])
 
+    const signer = await provider.getSigner()
     const message = 'message'
-    const password = ''
-    const signature = await web3.eth.personal.sign(message, address, password)
+    const address = await signer.getAddress()
+    const signature = await signer.signMessage(message)
     const response = await fetch('/api/verify', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: JSON.stringify({message, address, signature}),
+      body: JSON.stringify({ message, address, signature }),
     })
 
     const body = await response.json()
